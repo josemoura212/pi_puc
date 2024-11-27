@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:asyncstate/asyncstate.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
@@ -14,19 +12,15 @@ class HomeController with MessageStateMixin {
 
   List<Contact> get contacts => _contactSignal.value;
 
-  Future<List<Contact>> getAllContacts() async {
-    log('getAllContacts');
-    final contacts = await _isar.contacts.where().findAll();
-    log('contacts: $contacts');
-    _contactSignal.set(contacts, force: true);
-    return contacts;
+  Future<void> getAllContacts() async {
+    _contactSignal.set(await _isar.contacts.where().findAll(), force: true);
   }
 
-  Future<void> addContact(Contact contact) async {
+  Future<void> addAndEditContact(Contact contact) async {
     await _isar.writeTxn(() async {
       await _isar.contacts.put(contact);
     });
-    _contactSignal.set(_contactSignal.value..add(contact), force: true);
+    await getAllContacts();
     showSuccess('Contato adicionado');
   }
 
@@ -34,7 +28,7 @@ class HomeController with MessageStateMixin {
     await _isar.writeTxn(() async {
       await _isar.contacts.delete(contact.id);
     });
-    _contactSignal.set(_contactSignal.value..remove(contact), force: true);
+    await getAllContacts();
     showSuccess('Contato removido');
   }
 
@@ -57,11 +51,8 @@ class HomeController with MessageStateMixin {
             Text('Email: ${contact.email}'),
           ],
         ),
+        actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Fechar'),
-          ),
           TextButton(
             onPressed: () async {
               final result = await showDialog(
@@ -71,14 +62,18 @@ class HomeController with MessageStateMixin {
                       title: const Text('Confirmação'),
                       content:
                           const Text('Deseja realmente excluir este contato?'),
+                      actionsAlignment: MainAxisAlignment.spaceBetween,
                       actions: [
                         TextButton(
-                          onPressed: () => Navigator.pop(context, false),
-                          child: Text("Cancelar"),
+                          onPressed: () => Navigator.pop(context, true),
+                          child: Text(
+                            "Excluir",
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.pop(context, true),
-                          child: Text("Excluir"),
+                          onPressed: () => Navigator.pop(context, false),
+                          child: Text("Editar"),
                         ),
                       ],
                     );
@@ -91,6 +86,20 @@ class HomeController with MessageStateMixin {
               }
             },
             child: const Text('Excluir'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await Navigator.pushNamed(context, "/home/edit",
+                  arguments: contact);
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+            },
+            child: const Text('Editar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Fechar'),
           ),
         ],
       ),

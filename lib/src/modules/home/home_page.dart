@@ -27,43 +27,48 @@ class _HomePageState extends State<HomePage> with MessageViewMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista De Contatos'),
-        centerTitle: true,
-      ),
-      body: Watch(
-        (_) => CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: const SizedBox(height: 30),
-            ),
-            SliverList.builder(
-              itemCount: controller.contacts.length,
-              itemBuilder: (_, index) {
-                final contact = controller.contacts[index];
-                return ListTile(
-                  title: Text(contact.name),
-                  subtitle: Text(contact.phone),
-                  onTap: () => controller.showInfoContact(contact, context),
-                );
-              },
-            )
-          ],
+    return RefreshIndicator(
+      onRefresh: () async {
+        await controller.getAllContacts().asyncLoader();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Lista De Contatos'),
+          centerTitle: true,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Add',
-        shape: CircleBorder(
-          side: BorderSide(
-            color: Theme.of(context).primaryColor,
-            width: 2,
+        body: Watch(
+          (_) => CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: const SizedBox(height: 30),
+              ),
+              SliverList.builder(
+                itemCount: controller.contacts.length,
+                itemBuilder: (_, index) {
+                  final contact = controller.contacts[index];
+                  return ListTile(
+                    title: Text(contact.name),
+                    subtitle: Text(contact.phone),
+                    onTap: () => controller.showInfoContact(contact, context),
+                  );
+                },
+              )
+            ],
           ),
         ),
-        onPressed: () {
-          Navigator.pushNamed(context, '/home/edit');
-        },
-        child: const Icon(Icons.add),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Add',
+          shape: CircleBorder(
+            side: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 2,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/home/edit');
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

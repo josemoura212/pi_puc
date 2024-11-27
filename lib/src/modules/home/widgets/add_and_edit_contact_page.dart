@@ -4,20 +4,31 @@ import 'package:flutter_getit/flutter_getit.dart';
 import 'package:pi_puc/src/models/contact.dart';
 import 'package:pi_puc/src/modules/home/home_controller.dart';
 
-class AddContactPage extends StatefulWidget {
-  const AddContactPage({super.key});
+class AddAndEditContactPage extends StatefulWidget {
+  const AddAndEditContactPage({super.key, this.contact});
+  final Contact? contact;
 
   @override
-  State<AddContactPage> createState() => _AddContactPageState();
+  State<AddAndEditContactPage> createState() => _AddAndEditContactPageState();
 }
 
-class _AddContactPageState extends State<AddContactPage> {
+class _AddAndEditContactPageState extends State<AddAndEditContactPage> {
   final controller = Injector.get<HomeController>();
 
   final _formKey = GlobalKey<FormState>();
   final _nameEC = TextEditingController();
   final _phoneEC = TextEditingController();
   final _emailEC = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.contact != null) {
+      _nameEC.text = widget.contact!.name;
+      _phoneEC.text = widget.contact!.phone;
+      _emailEC.text = widget.contact!.email;
+    }
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -29,9 +40,10 @@ class _AddContactPageState extends State<AddContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final contact = widget.contact;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Contato'),
+        title: Text(contact == null ? 'Adicionar Contato' : 'Editar Contato'),
         centerTitle: true,
       ),
       body: Padding(
@@ -62,7 +74,7 @@ class _AddContactPageState extends State<AddContactPage> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await controller
-                        .addContact(Contact(
+                        .addAndEditContact(Contact(
                           name: _nameEC.text,
                           phone: _phoneEC.text,
                           email: _emailEC.text,
