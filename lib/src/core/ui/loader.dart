@@ -2,6 +2,7 @@ import "package:asyncstate/asyncstate.dart";
 import "package:flutter/material.dart";
 import "package:loading_animation_widget/loading_animation_widget.dart";
 
+/// Loader para usar no assyncLoader
 final class PiPucLoader extends AsyncOverlay {
   PiPucLoader()
       : super(

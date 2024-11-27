@@ -6,50 +6,70 @@ import 'package:pi_puc/src/core/helpers/messages.dart';
 import 'package:pi_puc/src/models/contact.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
+/// Controller da tela Home
 class HomeController with MessageStateMixin {
+  /// inicialização tardia do banco de dados local
   late Isar _isar;
+
+  /// sinal de lista de contatos
   final Signal<List<Contact>> _contactSignal = Signal([]);
 
+  /// lista de contatos
   List<Contact> get contacts => _contactSignal.value;
 
+  /// função para buscar todos os contatos
   Future<void> getAllContacts() async {
     _contactSignal.set(await _isar.contacts.where().findAll(), force: true);
   }
 
+  /// função para adicionar e editar um contato
   Future<void> addAndEditContact(Contact contact) async {
     await _isar.writeTxn(() async {
       await _isar.contacts.put(contact);
     });
     await getAllContacts();
-    showSuccess('Contato adicionado');
+    showSuccess('Contato Salvo');
   }
 
+  /// função para deletar um contato
   Future<void> deleteContact(Contact contact) async {
     await _isar.writeTxn(() async {
-      await _isar.contacts.delete(contact.id);
+      await _isar.contacts.delete(contact.id!);
     });
     await getAllContacts();
-    showSuccess('Contato removido');
+    showSuccess('Contato Excluido');
   }
 
+  /// função para inicializar o banco de dados local
   Future<void> initState() async {
     final dir = await getApplicationDocumentsDirectory();
 
     _isar = await Isar.open([ContactSchema], directory: dir.path);
   }
 
+  /// função para mostrar informações de um contato
   Future<void> showInfoContact(Contact contact, BuildContext context) async {
+    final size = MediaQuery.of(context).size;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(contact.name),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Telefone: ${contact.phone}'),
-            Text('Email: ${contact.email}'),
-          ],
+        content: SizedBox(
+          width: size.width * 0.9,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Telefone: ${contact.phone}',
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                'Email: ${contact.email}',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
         actionsAlignment: MainAxisAlignment.spaceBetween,
         actions: [
@@ -58,10 +78,14 @@ class HomeController with MessageStateMixin {
               final result = await showDialog(
                   context: context,
                   builder: (_) {
+                    /// Dialogo de confirmação de exclusão
                     return AlertDialog(
                       title: const Text('Confirmação'),
-                      content:
-                          const Text('Deseja realmente excluir este contato?'),
+                      content: SizedBox(
+                        width: size.width * 0.9,
+                        child: const Text(
+                            'Deseja realmente excluir este contato?'),
+                      ),
                       actionsAlignment: MainAxisAlignment.spaceBetween,
                       actions: [
                         TextButton(
@@ -73,7 +97,7 @@ class HomeController with MessageStateMixin {
                         ),
                         TextButton(
                           onPressed: () => Navigator.pop(context, false),
-                          child: Text("Editar"),
+                          child: Text("Cancelar"),
                         ),
                       ],
                     );
@@ -85,7 +109,10 @@ class HomeController with MessageStateMixin {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Excluir'),
+            child: const Text(
+              'Excluir',
+              style: TextStyle(color: Colors.red),
+            ),
           ),
           TextButton(
             onPressed: () async {
@@ -95,11 +122,15 @@ class HomeController with MessageStateMixin {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Editar'),
+            child: const Text(
+              'Editar',
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Fechar'),
+            child: const Text(
+              'Fechar',
+            ),
           ),
         ],
       ),

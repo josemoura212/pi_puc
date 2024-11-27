@@ -1,3 +1,4 @@
+/// Interface para o sharedPreferences
 abstract interface class LocalStorage {
   Future<String?> read(String key);
   Future<bool?> readBool(String key);

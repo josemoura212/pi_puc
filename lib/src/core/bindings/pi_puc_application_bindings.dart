@@ -3,6 +3,7 @@ import 'package:pi_puc/src/core/local_storage/local_storage.dart';
 import 'package:pi_puc/src/core/local_storage/local_storage_impl.dart';
 import 'package:pi_puc/src/core/ui/theme_manager.dart';
 
+/// Injeção de dependencias do aplicativo
 class PiPucApplicationBindings extends ApplicationBindings {
   @override
   List<Bind<Object>> bindings() => [

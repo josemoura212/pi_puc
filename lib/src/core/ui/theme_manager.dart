@@ -3,6 +3,7 @@ import 'package:pi_puc/src/core/local_storage/local_storage.dart';
 import 'package:pi_puc/src/core/ui/ui_config.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
+/// Gerenciador de tema
 class ThemeManager {
   final Signal<ThemeData> themeData;
   final Signal<bool> _isDarkMode;
@@ -18,6 +19,7 @@ class ThemeManager {
         _isDarkMode = Signal(initialDarkMode),
         _localStorage = localStorage;
 
+  /// Função para alternar o tema
   void toggleTheme() async {
     _isDarkMode.value = !_isDarkMode.value;
     themeData.value =

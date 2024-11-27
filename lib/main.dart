@@ -11,7 +11,10 @@ import 'package:pi_puc/src/modules/home/home_module.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
 Future<void> main() async {
+  /// Garantir que o bindind dos widgets seja inicializado antes de qualquer codigo
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// inicia o isar (banco de dados local)
   Isar.initializeIsarCore();
   runApp(
     const PiPuc(),
@@ -23,17 +26,26 @@ class PiPuc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// FlutterGetIt Gerenciador de dependencias
     return FlutterGetIt(
+      /// Dependencias inicias do applicativo
       bindings: PiPucApplicationBindings(),
       modules: [
+        /// Modulos do app
         HomeModule(),
       ],
       builder: (context, routes, isReady) {
+        /// inicializa o theme data salvo localmente usando o sharedpreferences
         final themeManager = Injector.get<ThemeManager>()..getDarkMode();
+
+        /// asyncstate gerenciamento de loader para requisiçoes assincronas
         return asyncstate.AsyncStateBuilder(
+          /// loader personalizado
           loader: PiPucLoader(),
           builder: (asyncNavigatorObserver) {
+            /// Widget de atualização de estado usando o SignalsFlutter
             return Watch(
+              /// inicialização principal do app
               (_) => MaterialApp(
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
@@ -48,7 +60,7 @@ class PiPuc extends StatelessWidget {
                 theme: UiConfig.lightTheme,
                 darkTheme: UiConfig.darkTheme,
                 themeMode:
-                    themeManager.isDarkMode ? ThemeMode.light : ThemeMode.light,
+                    themeManager.isDarkMode ? ThemeMode.dark : ThemeMode.light,
                 navigatorObservers: [
                   asyncNavigatorObserver,
                 ],

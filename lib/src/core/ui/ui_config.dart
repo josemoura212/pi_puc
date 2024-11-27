@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// define as configurações de UI
 sealed class UiConfig {
+  /// define o tema claro
   static ThemeData get lightTheme => ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.greenAccent,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         inputDecorationTheme: const InputDecorationTheme(
@@ -45,10 +47,11 @@ sealed class UiConfig {
         ),
       );
 
+  /// define o tema escuro
   static ThemeData get darkTheme => ThemeData(
         brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+          seedColor: Colors.greenAccent,
           brightness: Brightness.dark,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,

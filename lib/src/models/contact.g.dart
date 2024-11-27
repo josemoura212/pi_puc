@@ -78,10 +78,10 @@ Contact _contactDeserialize(
 ) {
   final object = Contact(
     email: reader.readString(offsets[0]),
+    id: id,
     name: reader.readString(offsets[1]),
     phone: reader.readString(offsets[2]),
   );
-  object.id = id;
   return object;
 }
 
@@ -104,7 +104,7 @@ P _contactDeserializeProp<P>(
 }
 
 Id _contactGetId(Contact object) {
-  return object.id;
+  return object.id ?? Isar.autoIncrement;
 }
 
 List<IsarLinkBase<dynamic>> _contactGetLinks(Contact object) {
@@ -322,7 +322,23 @@ extension ContactQueryFilter
     });
   }
 
-  QueryBuilder<Contact, Contact, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Contact, Contact, QAfterFilterCondition> idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<Contact, Contact, QAfterFilterCondition> idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<Contact, Contact, QAfterFilterCondition> idEqualTo(Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -332,7 +348,7 @@ extension ContactQueryFilter
   }
 
   QueryBuilder<Contact, Contact, QAfterFilterCondition> idGreaterThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -345,7 +361,7 @@ extension ContactQueryFilter
   }
 
   QueryBuilder<Contact, Contact, QAfterFilterCondition> idLessThan(
-    Id value, {
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -358,8 +374,8 @@ extension ContactQueryFilter
   }
 
   QueryBuilder<Contact, Contact, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

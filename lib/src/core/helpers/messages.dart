@@ -3,6 +3,7 @@ import 'package:signals_flutter/signals_flutter.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+/// Classe para exibir mensagens
 final class Messages {
   static void showError(String message, BuildContext context) =>
       showTopSnackBar(
@@ -15,13 +16,12 @@ final class Messages {
         ),
       );
 
-      
-
   static void showSuccess(String message, BuildContext context) =>
       showTopSnackBar(
           Overlay.of(context), CustomSnackBar.success(message: message));
 }
 
+/// Mixin para exibir mensagens diretamente da controller
 mixin MessageStateMixin {
   final Signal<String?> _errorMessage = signal(null);
   String? get errorMessage => _errorMessage();
@@ -60,6 +60,7 @@ mixin MessageStateMixin {
   }
 }
 
+/// Mixin para exibir mensagens na view
 mixin MessageViewMixin<T extends StatefulWidget> on State<T> {
   void messageListener(MessageStateMixin state) {
     effect(() {

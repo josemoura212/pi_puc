@@ -1,6 +1,7 @@
 import 'package:pi_puc/src/core/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Implementação do LocalStorage utilizando o Shared Preferences
 class SharedPreferenceImpl implements LocalStorage {
   Future<SharedPreferences> get _instance => SharedPreferences.getInstance();
 
