@@ -6,23 +6,36 @@ version: 0.1.0
 environment:
   sdk: ^3.5.4
 
+isar_version: &isar_version 3.1.8
+
 dependencies:
+  asyncstate: ^2.1.1-dev.1
   flutter:
     sdk: flutter
+  flutter_getit: ^3.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_getit: ^3.0.1
+  isar:
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs: # contains Isar Core
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
   loading_animation_widget: ^1.2.1
-  asyncstate: ^2.1.1-dev.1
+  path_provider: ^2.0.15
   shared_preferences: ^2.3.3
   signals_flutter: ^5.5.1
   top_snackbar_flutter: ^3.1.0
   validatorless: ^1.2.3
 
 dev_dependencies:
+  isar_generator:
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  build_runner: any
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

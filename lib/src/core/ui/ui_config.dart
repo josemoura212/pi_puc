@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 sealed class UiConfig {
   static ThemeData get lightTheme => ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          brightness: Brightness.light,
+          seedColor: Colors.greenAccent,
+          brightness: Brightness.dark,
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         inputDecorationTheme: const InputDecorationTheme(

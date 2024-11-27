@@ -1,4 +1,4 @@
-package net.mangatrix.pi_puc
+package com.example.pi_puc
 
 import io.flutter.embedding.android.FlutterActivity
 
