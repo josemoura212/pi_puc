@@ -57,24 +57,17 @@ class _HomePageState extends State<HomePage> with MessageViewMixin {
               SliverToBoxAdapter(
                 child: const SizedBox(height: 30),
               ),
-              controller.contacts.isEmpty
-                  ? const SliverFillRemaining(
-                      child: Center(
-                        child: Text('Nenhum contato cadastrado'),
-                      ),
-                    )
-                  : SliverList.builder(
-                      itemCount: controller.contacts.length,
-                      itemBuilder: (_, index) {
-                        final contact = controller.contacts[index];
-                        return ListTile(
-                          title: Text(contact.name),
-                          subtitle: Text(contact.phone),
-                          onTap: () =>
-                              controller.showInfoContact(contact, context),
-                        );
-                      },
-                    )
+              SliverList.builder(
+                itemCount: controller.contacts.length,
+                itemBuilder: (_, index) {
+                  final contact = controller.contacts[index];
+                  return ListTile(
+                    title: Text(contact.name),
+                    subtitle: Text(contact.phone),
+                    onTap: () => controller.showInfoContact(contact, context),
+                  );
+                },
+              )
             ],
           ),
         ),
