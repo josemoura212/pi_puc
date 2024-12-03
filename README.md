@@ -116,21 +116,52 @@ As funcionalidades CRUD implementadas foram:
 
 
 ## Screenshots
+Tela de Adição de Novos Contatos.
 
-images/IMG-20241201-WA0030.jpg
+<img src="images/IMG-20241201-WA0030.jpg" alt="Texto Alternativo" width="300" height="600">
 
-images/IMG-20241201-WA0031.jpg
+Tela de Lista de Contatos(Vazia).
 
-images/IMG-20241201-WA0032.jpg
+<img src="images/IMG-20241201-WA0031.jpg" alt="Texto Alternativo" width="300" height="600">
 
-images/IMG-20241201-WA0033.jpg
+Tela de Teste de Adição de Contatos com Campos Vazios(Erro).
 
-images/IMG-20241201-WA0034.jpg
+<img src="images/IMG-20241201-WA0032.jpg" alt="Texto Alternativo" width="300" height="600">
 
-images/IMG-20241201-WA0035.jpg
+Tela de Teste de Adição de Contatos de campo com informações inválidas(Erro).
 
-images/IMG-20241201-WA0036.jpg
+<img src="images/IMG-20241201-WA0033.jpg" alt="Texto Alternativo" width="300" height="600">
 
-images/IMG-20241201-WA0037.jpg
+Telas de Confirmação de Contato salvo com sucesso.
 
-images/IMG-20241201-WA0038.jpg
+<img src="images/IMG-20241201-WA0034.jpg" alt="Texto Alternativo" width="300" height="600">
+
+Tela com opções de alteração de contato(Alteração e exclusão de dados)
+
+<img src="images/IMG-20241201-WA0035.jpg" alt="Texto Alternativo" width="300" height="600">
+
+Tela de Edição de Contatos.
+
+<img src="images/IMG-20241201-WA0036.jpg" alt="Texto Alternativo" width="300" height="600">
+
+tela de Confirmação de Exclusão de Contatos.
+
+<img src="images/IMG-20241201-WA0037.jpg" alt="Texto Alternativo" width="300" height="600">
+
+Tela de Confirmação de Exclusão de Contatos.
+
+<img src="images/IMG-20241201-WA0038.jpg" alt="Texto Alternativo" width="300" height="600">
+
+
+## Integrantes
+
+- José Augusto Soares de Moura
+
+- Guilherme Rezende Ganim
+
+- Natal Lucas Ribeiro de Paula
+
+- Carlos Vinicius Bressani
+
+- Ernandes Yosimura
+
