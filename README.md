@@ -1,36 +1,39 @@
 ## PROJETO INTEGRADOR PUC GOIAS
 
+## Instalação:
 
+Para rodar o projeto, é necessário ter o Flutter instalado em sua máquina. Caso não tenha, siga as instruções no link abaixo:
 
+https://flutter.dev/docs/get-started/install
 
+Após a instalação do Flutter, clone o repositório em sua máquina:
 
+```bash
+git clone <link do repositorio>
+```
 
+Acesse a pasta do projeto:
 
+```bash
+cd pi_puc
+```
+
+Instale as dependências do projeto:
+
+```bash
+flutter pub get
+```
+
+Execute o projeto:
+
+```bash
+flutter run
+```
 
 
 ## Documentação:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Visão Geral
-
 
 Este repositório contém uma aplicação desenvolvida em Dart, que possibilita ao usuário fazer alterações em um banco de dados local(Neste caso, o Isar) utilizando conceitos CRUD ( Create (Criar), Read (Ler), Update (Atualizar) e Delete (Apagar)). Que se trata de um Projeto universitário da PUC-GO com foco em uso de boas práticas.
 
@@ -43,11 +46,9 @@ A aplicação segue o paradigma de Programação Orientada à Objetos utilizando
 - Adição, exclusão, modificação e consulta de Contatos diretamente ao Banco de Dados através de uma interface simples e amigável.
 - Cross-plataform (Aindroid e IOS).
 
-
 ## Estrutura do Código
 
-
- - android e ios: Configurações específicas das plataformas.
+- android e ios: Configurações específicas das plataformas.
 
 - lib/src: Código fonte do app, contendo arquivos e subpastas que implementam as principais funcionalidades.
 
@@ -74,13 +75,9 @@ Inicializa o núcleo do banco de dados Isar, que é um banco de dados local usad
 runApp(const PiPuc());
 Inicia o aplicativo Flutter com o widget raiz PiPuc.
 
-
-
 - pubspec.yaml:onde são declaradas as dependências do projeto, como bibliotecas externas e assets (imagens, fontes, etc). Ele também contém informações como a versão Dart, nome, descrição, versão do projeto, etc. 
 
-
 - pubspec.lock:bloqueia as versões para as quais pode ser feito o upgrade. Isso ajuda a evitar problemas de compatibilidade e garante que todos os que trabalham no projeto usem a mesma versão do código. 
-
 
 - analysis_options.yaml: Regras de lint para o código.
 
@@ -88,9 +85,7 @@ Inicia o aplicativo Flutter com o widget raiz PiPuc.
 
 - .gitignore e .metadata: Arquivos para versionamento
 
-
 ## CRUD
-
 
 ### Como as funcionalidades do CRUD foram implementadas
 
@@ -111,9 +106,6 @@ As funcionalidades CRUD implementadas foram:
 
  **Delete (Excluir)**:
    - A exclusão de registros é realizada através de rotas DELETE. Essas rotas recebem um identificador do registro a ser excluído e executam uma consulta SQL para remover o registro do banco de dados.
-
-
-
 
 ## Screenshots
 Tela de Adição de Novos Contatos.
@@ -156,8 +148,6 @@ Tela de Confirmação de Exclusão de Contatos.
 ## Integrantes
 
 - José Augusto Soares de Moura
-
-- Guilherme Rezende Ganim
 
 - Natal Lucas Ribeiro de Paula
 
