@@ -1,5 +1,9 @@
 ## PROJETO INTEGRADOR PUC GOIAS
 
+## Apresentação:
+
+[![Watch the video](https://img.youtube.com/vi/Pii5CTJ9Elg/0.jpg)](https://www.youtube.com/watch?v=Pii5CTJ9Elg)
+
 ## Instalação:
 
 Para rodar o projeto, é necessário ter o Flutter instalado em sua máquina. Caso não tenha, siga as instruções no link abaixo:
